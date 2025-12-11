@@ -1,14 +1,23 @@
 ; Emulator68kStub.a
-; Stub for the 68k Emulator
+; Reconstructed Stub for the 68k Emulator.
+;
+; In a pure 68k System 7.1, this "emulator" is likely just a passthrough
+; or handles specific 68k family differences (like 040 emulation on 030? Unlikely).
+; OR it is the 68k emulator for PowerPC, which is just a stub here because we are on 68k.
 
 	STRING	ASIS
 
 	EXPORT	EmulatorEntry
 	EXPORT	Run68k
 
+; EmulatorEntry
+; Main entry point.
 EmulatorEntry:
+	; Just return. On a real 68k machine, we are already running 68k code.
 	RTS
 
+; Run68k
+; Routine to execute 68k code?
 Run68k:
 	RTS
 

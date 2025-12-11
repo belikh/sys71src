@@ -1,3 +1,9 @@
+/*
+ * MiniFinder.c
+ * Reconstructed stub for the Finder.
+ * Based on basic analysis of Finder initialization.
+ */
+
 #include <Types.h>
 #include <QuickDraw.h>
 #include <Fonts.h>
@@ -6,19 +12,15 @@
 #include <TextEdit.h>
 #include <Dialogs.h>
 #include <Events.h>
-
-/*
- * MiniFinder.c
- * A minimal replacement for the Finder.
- * This program initializes the Mac Toolbox and enters a loop.
- */
+#include <Memory.h>
+#include <OSUtils.h>
 
 void main(void) {
+    EventRecord myEvent;
     WindowPtr myWindow;
     Rect bounds;
-    EventRecord myEvent;
 
-    // Initialize the Toolbox
+    // Standard Toolbox Initialization
     InitGraf(&qd.thePort);
     InitFonts();
     InitWindows();
@@ -27,20 +29,29 @@ void main(void) {
     InitDialogs(nil);
     InitCursor();
 
-    // Draw a desktop background (Gray)
+    // Expand Heap
+    MaxApplZone();
+
+    // Draw Desktop
+    // In a real finder, this would load the desktop pattern
     FillRect(&qd.screenBits.bounds, &qd.gray);
 
-    // Create a simple window
-    SetRect(&bounds, 50, 50, 300, 200);
-    myWindow = NewWindow(nil, &bounds, "\pMiniFinder", true, noGrowDocProc, (WindowPtr)-1, true, 0);
+    // Create a dummy window to show it's alive
+    SetRect(&bounds, 50, 50, 400, 200);
+    myWindow = NewWindow(nil, &bounds, "\pSystem 7.1 MiniFinder", true, noGrowDocProc, (WindowPtr)-1, true, 0);
 
     // Main Event Loop
     while (true) {
         if (WaitNextEvent(everyEvent, &myEvent, 60, nil)) {
             switch (myEvent.what) {
                 case mouseDown:
+                    // Handle clicks (stub)
                     break;
                 case keyDown:
+                    // Handle keys (stub)
+                    if ((myEvent.message & charCodeMask) == 'q') {
+                         ExitToShell();
+                    }
                     break;
             }
         }
