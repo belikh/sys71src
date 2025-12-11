@@ -1,0 +1,15 @@
+; Emulator68kStub.a
+; Stub for the 68k Emulator
+
+	STRING	ASIS
+
+	EXPORT	EmulatorEntry
+	EXPORT	Run68k
+
+EmulatorEntry:
+	RTS
+
+Run68k:
+	RTS
+
+	END
