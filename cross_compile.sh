@@ -38,8 +38,8 @@ if [ ! -d "$BINARIES_DIR/Extracted" ]; then
             IMG_PATH=$(find "$BINARIES_DIR" -name "*DiskTools*.IMA" -o -name "*Disk Tools*.image" | head -n 1)
             if [ -n "$IMG_PATH" ]; then
                 hmount "$IMG_PATH"
-                hcopy ":System Folder:Finder" "$BINARIES_DIR/Extracted/Finder"
-                hcopy ":System Folder:System" "$BINARIES_DIR/Extracted/System"
+                hcopy ":System Folder:Finder" "$BINARIES_DIR/Extracted/Finder.data"
+                hcopy ":System Folder:System" "$BINARIES_DIR/Extracted/System.data"
                 humount
                 echo "Extracted 'Finder' and 'System' to Binaries/Extracted/"
             else
@@ -97,7 +97,11 @@ for stub in "${STUBS[@]}"; do
 done
 
 # 6. Patch the Makefile
-./patch_makefile.sh
+if [ -f "./patch_makefile.sh" ]; then
+    ./patch_makefile.sh
+else
+    echo "Warning: patch_makefile.sh not found."
+fi
 
 echo "================================================================"
 echo "Setup Complete."

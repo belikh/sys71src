@@ -6,11 +6,18 @@
 #include <TextEdit.h>
 #include <Dialogs.h>
 #include <Events.h>
+#include <OSUtils.h>
 
 /*
  * MiniFinder.c
- * A minimal replacement for the Finder.
- * This program initializes the Mac Toolbox and enters a loop.
+ * A minimal replacement for the Macintosh Finder.
+ *
+ * ANALYSIS NOTES:
+ * The original Finder (System 7.1) is a multi-segment application (176 CODE resources).
+ * It initializes the Macintosh Toolbox and manages the Desktop, Windows, and File System.
+ *
+ * This stub implements the minimal initialization required to satisfy the Startup Process
+ * and keep the machine in a valid graphical state.
  */
 
 void main(void) {
@@ -18,7 +25,7 @@ void main(void) {
     Rect bounds;
     EventRecord myEvent;
 
-    // Initialize the Toolbox
+    // 1. Initialize the Toolbox (Standard sequence)
     InitGraf(&qd.thePort);
     InitFonts();
     InitWindows();
@@ -27,20 +34,30 @@ void main(void) {
     InitDialogs(nil);
     InitCursor();
 
-    // Draw a desktop background (Gray)
+    // 2. Draw the Desktop
+    // The Finder is responsible for painting the gray desktop pattern.
     FillRect(&qd.screenBits.bounds, &qd.gray);
 
-    // Create a simple window
+    // 3. Create a "Finder" Window
+    // This proves the app is running.
     SetRect(&bounds, 50, 50, 300, 200);
-    myWindow = NewWindow(nil, &bounds, "\pMiniFinder", true, noGrowDocProc, (WindowPtr)-1, true, 0);
+    myWindow = NewWindow(nil, &bounds, "\pMiniFinder (System 7.1 Stub)", true, noGrowDocProc, (WindowPtr)-1, true, 0);
 
-    // Main Event Loop
+    // 4. Main Event Loop
+    // A standard app must process events to stay alive.
     while (true) {
         if (WaitNextEvent(everyEvent, &myEvent, 60, nil)) {
             switch (myEvent.what) {
                 case mouseDown:
+                    // Stub: Handle clicks
+                    SysBeep(1);
                     break;
                 case keyDown:
+                    // Stub: Handle keys
+                    break;
+                case kHighLevelEvent:
+                    // Finder receives AppleEvents (Open Documents, etc.)
+                    // AEProcessAppleEvent(&myEvent); // Requires linking AE lib
                     break;
             }
         }

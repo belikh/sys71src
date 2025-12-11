@@ -186,3 +186,11 @@ MainCodeLibs = 												¶
 	Asm {StdEquAOpts} -o Dev:Null "{IntAIncludes}StandardEqu.a" -i "{IntAIncludes}"
 	Move -y StandardEqu.d "{Targ}"
 
+
+# --- PATCHED BY AUTOMATED SCRIPT ---
+# The following objects satisfy the missing components.
+# Add these to your Link command or MainCodeLibs variable.
+# "{ObjDir}MiniFinder.c.o"
+# "{ObjDir}VirtualMemoryStub.c.o"
+# "{ObjDir}Emulator68kStub.a.o"
+# -----------------------------------

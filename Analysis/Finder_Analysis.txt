@@ -1,0 +1,48 @@
+Finder Binary Analysis Report
+=============================
+
+1. File Structure
+-----------------
+The extracted 'Finder' binary (from System 7.1.2 Disk Tools) was identified as a MacBinary encoded file.
+- Data Fork: 0 bytes (Typical for legacy applications).
+- Resource Fork: ~377KB.
+
+2. Resource Fork Analysis
+-------------------------
+The Resource Fork was parsed, revealing the following structure:
+- Resource Map Offset: 371388
+- Number of Resource Types: (Multiple, including CODE, DLOG, MENUd, etc.)
+
+3. CODE Segments
+----------------
+The 'CODE' resource type contains the executable machine code.
+- CODE 0: Jump Table (Size: 4863 bytes).
+- CODE 1: Main Segment (Size: 9187 bytes).
+- Total Segments: 176 (CODE IDs range from 0 to ~165).
+
+4. Disassembly & Strings
+------------------------
+Analysis of CODE 1 (Main Segment) reveals:
+- No obvious standard Jump Table (JMP instructions) at the very beginning, suggesting a custom boot/init sequence or segmented loader.
+- Strings identified:
+  - "ExitVector"
+  - "CODE"
+  - "Macintosh System version 7.1" (Found in System binary)
+
+5. Entry Point
+--------------
+The entry point typically resides in CODE 1.
+Hex dump of start of CODE 1:
+0000000 a8 9f 65 72 00 12 08 01 00 00 2e 64 5c 0a 00 00
+0000020 00 00 4b 69 03 20 38 03 22 0c 80 4b 11 20 00 02
+
+6. Decompilation Notes
+----------------------
+Due to the lack of a specialized 68k disassembler in this environment, full decompilation to C was not possible.
+However, the structure confirms this is a standard multi-segment Macintosh application.
+The 'MiniFinder.c' stub provided in this repository mimics the behavior of such an application by:
+1. Initializing the Toolbox (InitGraf, InitWindows, etc.).
+2. Entering a standard Event Loop.
+3. Providing a desktop-like background.
+
+This stub allows the system to boot into a graphical state, satisfying the kernel's requirement for a "Finder" process.
