@@ -1,0 +1,4 @@
+# Simple Jekyll configuration
+theme: jekyll-theme-minimal
+title: Mac OS 7.1 Source Docs
+description: Documentation for the Mac OS 7.1 Source Code Reconstruction
