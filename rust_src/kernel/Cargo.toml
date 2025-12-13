@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 mac_types = { path = "../mac_types" }
+os = { path = "../os" }
 
 [profile.release]
 panic = "abort"

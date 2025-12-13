@@ -3,6 +3,7 @@
 
 use core::panic::PanicInfo;
 use mac_types::{EventRecord, Rect, Point, Str255, EVERY_EVENT, NULL_EVENT, MOUSE_DOWN, KEY_DOWN};
+use os::memory_mgr::{init_zone, new_handle, dispose_handle};
 
 // Mock External Functions (Toolbox)
 // In a real implementation, these would be linked to the actual C/Asm implementation
@@ -73,6 +74,17 @@ fn main() {
         modifiers: 0,
     };
     let mut bounds = Rect::default();
+
+    // Initialize Memory Manager (Stubbed)
+    unsafe {
+        // Assume some memory range 0x10000 to 0x20000 is available for the heap
+        let heap_start = 0x10000 as *mut u8;
+        let heap_end = 0x20000 as *mut u8;
+        let _ = init_zone(heap_start, heap_end);
+
+        let _h = new_handle(1024);
+        dispose_handle(_h);
+    }
 
     // In a real pure Rust OS, we would initialize our own subsystems here.
     // For now, we stub the calls to show where they would go.

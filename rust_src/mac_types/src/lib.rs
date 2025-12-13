@@ -4,6 +4,11 @@ pub type OSErr = i16;
 pub type OSType = u32;
 pub type ResType = OSType;
 pub type Boolean = u8;
+pub type Size = u32; // In 32-bit world, Size is long
+pub type Ptr = *mut u8;
+pub type Handle = *mut Ptr;
+pub type ProcPtr = *mut u8; // Generic function pointer
+pub type GrowZoneProcPtr = *mut u8; // Specific function pointer
 
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default)]
@@ -26,9 +31,6 @@ impl Rect {
         Rect { top, left, bottom, right }
     }
 }
-
-pub type Ptr = *mut u8;
-pub type Handle = *mut Ptr;
 
 #[repr(C)]
 pub struct EventRecord {
