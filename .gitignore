@@ -2,3 +2,5 @@ Binaries/
 disks.rar
 Analysis/
 Binaries/
+/target
+/rust_src/target

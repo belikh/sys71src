@@ -1,0 +1,10 @@
+[build]
+target = "m68k-unknown-none-elf"
+
+[target.m68k-unknown-none-elf]
+rustflags = ["-C", "link-arg=-Tkernel.ld"]
+
+# Note: This target requires nightly and build-std.
+# If you are on stable, you must override the target or use a custom JSON target spec (not included).
+# [unstable]
+# build-std = ["core", "alloc"]
