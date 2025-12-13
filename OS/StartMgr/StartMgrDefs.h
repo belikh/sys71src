@@ -122,3 +122,57 @@
 #define _HOpenResFile 0xA81A
 #define _OpenResFile 0xA997
 #define _GetVol 0xA014
+
+
+/* Missing constants for Boot2.S */
+#define initialSysHeapSize (700 * 1024)
+#define minBootAppHeapSize (32 * 1024)
+#define minSysHeapFreeForINIT (24 * 1024)
+#define sysHeapFreeSpaceSlop (16 * 1024)
+#define minSysHeapFreeSpace (64 * 1024)
+#define minProcessMgrSpace (500 * 1024)
+#define processMgrStackSize (8 * 1024)
+#define debuggerGlobalSize (1 * 1024)
+#define elbowRoomCacheCantHave (400 * 1024)
+#define systemEnabledBit 2
+#define extensionsEnabledBit 5
+#define ExtensionsEnabledByte 0xB20
+#define CurNamePtr (CurApName+4)
+#define CurApName 0x910 /* Check value */
+
+/* System Variables */
+#define MemTop 0x108
+#define BufPtr 0x10C
+#define SysZone 0x2A6
+#define TheZone 0x118
+#define CurrentA5 0x904
+#define CurStackBase 0x908
+#define ResumeProc 0xA8C
+#define DefltStack 0x322
+#define HeapEnd 0x114
+#define ApplLimit 0x130
+#define ApplZone 0x2AA
+#define RsrcZoneInit 0x296
+#define GrayRgn 0x9EE
+#define WindowList 0x9D6
+#define SaveVisRgn 0x9F2
+#define DragHook 0x9F6
+#define DeskHook 0x9F8
+#define MenuHook 0x9FA
+#define RestProc 0xA8C /* ResumeProc? */
+#define GhostWindow 0xA84
+#define TopMapHndl 0xA50
+#define SysMapHndl 0xA58
+#define SysMap 0xA58
+#define CurMap 0xA5A
+#define ResLoad 0xA5E
+#define ResErr 0xA60
+#define BoxFlag 0xCB3
+#define MMU32Bit 0xCB2
+#define TimeDBRA 0xD00
+#define HwCfgFlags 0xB22
+#define EDiskVars 0 /* Where is this? */
+#define EDiskDriveInfo 0 /* Where is this? */
+
+/* For CurApName, we usually find it in SysEqu.a */
+/* CurApName EQU 10 */
