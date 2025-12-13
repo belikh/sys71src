@@ -38,10 +38,10 @@ LoopROM:
     cmp.b   #0x76,%d1
     bhi.s   NoSysZoneResizeNeeded
 
-    move.l  SysZone.w,%a0
+    move.l  SysZone,%a0
     add.l   SystemHeapSize(%pc),%a0
     .word   _SetAppBase          /* _SetAppBase */
-    move.l  SysZone.w,TheZone.w
+    move.l  SysZone,TheZone
 
 NoSysZoneResizeNeeded:
     addq.l  #4,%sp           /* Pop off return address */
@@ -54,7 +54,7 @@ NoSysZoneResizeNeeded:
     move.w  RebootTable(%pc,%d6.w),%d1
 
 JoinROM:
-    move.l  ROMBase.w,%a0
+    move.l  ROMBase,%a0
     jmp     0(%a0,%d1.w)
 
 BadROM:
@@ -103,7 +103,7 @@ MainBootCode:
 
     lea     ClipboardFileName(%pc),%a0
     lea     ScrapTag,%a1
-    move.l  %a1,ScrapName.w
+    move.l  %a1,ScrapName
     moveq   #16,%d0
     .word   _BlockMove          /* _BlockMove */
 
@@ -117,7 +117,7 @@ MainBootCode:
 
     /* MountStartupDisk */
     move.l  %d7,%a0           /* Parameter block */
-    move.w  BootDrive.w,ioDrvNum(%a0)
+    move.w  BootDrive,ioDrvNum(%a0)
     .word   _MountVol          /* _MountVol */
     bne.s   Return
 
