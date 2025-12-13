@@ -34,7 +34,7 @@ pub unsafe fn init_zone(_start_ptr: Ptr, _end_ptr: Ptr) -> OSErr {
     0
 }
 
-pub unsafe fn new_handle(size: Size) -> Handle {
+pub unsafe fn new_handle(_size: Size) -> Handle {
     // Stub: Return a mock handle
     // In a real implementation, this would:
     // 1. Find free space in CURRENT_ZONE

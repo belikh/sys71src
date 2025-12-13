@@ -10,6 +10,8 @@ pub type Handle = *mut Ptr;
 pub type ProcPtr = *mut u8; // Generic function pointer
 pub type GrowZoneProcPtr = *mut u8; // Specific function pointer
 
+pub mod start;
+
 #[repr(C)]
 #[derive(Clone, Copy, Debug, Default)]
 pub struct Point {
