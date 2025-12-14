@@ -1,5 +1,8 @@
 /* StartMgrDefs.h - Constants for Start Manager Assembly */
 
+#ifndef STARTMGRDEFS_H
+#define STARTMGRDEFS_H
+
 /* SysEqu.a */
 #define ioFileName 0x12
 #define ioDrvNum 0x16
@@ -18,12 +21,38 @@
 #define ResumeProc 0xA8C
 #define DefltStack 0x322
 #define HeapEnd 0x114
-#define bkLim 0x20 /* BlockLimit offset in heap zone? Check */
+#define bkLim 0x20
+#define MemTop 0x108
+#define BufPtr 0x10C
+#define ApplLimit 0x130
+#define ApplZone 0x2AA
+#define RsrcZoneInit 0x296
+#define GrayRgn 0x9EE
+#define WindowList 0x9D6
+#define SaveVisRgn 0x9F2
+#define DragHook 0x9F6
+#define DeskHook 0x9F8
+#define MenuHook 0x9FA
+#define RestProc 0xA8C
+#define GhostWindow 0xA84
+#define TopMapHndl 0xA50
+#define SysMapHndl 0xA58
+#define SysMap 0xA58
+#define CurMap 0xA5A
+#define ResLoad 0xA5E
+#define ResErr 0xA60
+#define BoxFlag 0xCB3
+#define MMU32Bit 0xCB2
+#define TimeDBRA 0xD00
+#define HwCfgFlags 0xB22
+#define CurApName 0x910
+#define CurNamePtr (CurApName+4)
 
 /* SysErr.a */
 #define dsNoPatch 98
 #define dsSystemFileErr 20
 #define dsOldSystem 102
+#define dsNotEnoughRAMToBoot 102
 
 /* FSEqu.a */
 #define fsSBPartialName 0
@@ -74,19 +103,28 @@
 #define minSysHeapFreeAfterBoot (100 * 1024)
 #define minRAMNeededToBoot (3 * 512 * 1024)
 #define vmDebugSignature 0x564D
+#define kBootStackSizeNeeded 0x2000
+#define kNetBootNameID -16507
+#define kNetBootProcID -16507
+#define kNetBootDriverRefNum -50
+#define minBootAppHeapSize (32 * 1024)
+#define initialSysHeapSize (700 * 1024)
+#define minSysHeapFreeForINIT (24 * 1024)
+#define sysHeapFreeSpaceSlop (16 * 1024)
+#define minSysHeapFreeSpace (64 * 1024)
+#define minProcessMgrSpace (500 * 1024)
+#define processMgrStackSize (8 * 1024)
+#define debuggerGlobalSize (1 * 1024)
+#define elbowRoomCacheCantHave (400 * 1024)
+#define systemEnabledBit 2
+#define extensionsEnabledBit 5
+#define ExtensionsEnabledByte 0xB20
 
 /* Other constants */
 #define kROMVersionPlus 0x0075
 #define boxPlus 0
 #define MapTrue 1
 #define ROMMapInsert 0xB04
-#define CurMap 0xA5A
-#define SysMap 0xA58
-#define SysMapHndl 0xA58
-#define TopMapHndl 0xA50
-#define mNext 0
-#define ResLoad 0xA5E
-#define ResErr 0xA60
 #define kCPUGibblyFileType 0x67626C79
 #define kGibblyResourceType 0x67626C79
 #define kGibblyResourceID 0
@@ -98,8 +136,16 @@
 #define ioDirID 48
 #define ioVRefNum 22
 #define ioFileType 26
+#define emAppleTalkInactiveOnBoot 0
+#define bbScreenName 0
+#define bbVMDebugSignature 0
+#define bbDbg1Name 0
+#define bbDbg2Name 0
+#define portBits 0
+#define bounds 0
+#define botRight 0
 
-/* Trap Codes */
+/* Traps */
 #define _BlockMove 0xA02E
 #define _InitEvents 0xA06D
 #define _InitFS 0xA06C
@@ -122,57 +168,17 @@
 #define _HOpenResFile 0xA81A
 #define _OpenResFile 0xA997
 #define _GetVol 0xA014
+#define _InitGraf 0xA86E
+#define _InitFonts 0xA8FE
+#define _InitWindows 0xA912
+#define _InitMenus 0xA930
+#define _TEInit 0xA9CC
+#define _InitDialogs 0xA97B
+#define _InitCursor 0xA850
+#define _MaxApplZone 0xA063
+#define _FillRect 0xA8A5
+#define _NewWindow 0xA913
+#define _WaitNextEvent 0xA860
+#define _ExitToShell 0xA9F4
 
-
-/* Missing constants for Boot2.S */
-#define initialSysHeapSize (700 * 1024)
-#define minBootAppHeapSize (32 * 1024)
-#define minSysHeapFreeForINIT (24 * 1024)
-#define sysHeapFreeSpaceSlop (16 * 1024)
-#define minSysHeapFreeSpace (64 * 1024)
-#define minProcessMgrSpace (500 * 1024)
-#define processMgrStackSize (8 * 1024)
-#define debuggerGlobalSize (1 * 1024)
-#define elbowRoomCacheCantHave (400 * 1024)
-#define systemEnabledBit 2
-#define extensionsEnabledBit 5
-#define ExtensionsEnabledByte 0xB20
-#define CurNamePtr (CurApName+4)
-#define CurApName 0x910 /* Check value */
-
-/* System Variables */
-#define MemTop 0x108
-#define BufPtr 0x10C
-#define SysZone 0x2A6
-#define TheZone 0x118
-#define CurrentA5 0x904
-#define CurStackBase 0x908
-#define ResumeProc 0xA8C
-#define DefltStack 0x322
-#define HeapEnd 0x114
-#define ApplLimit 0x130
-#define ApplZone 0x2AA
-#define RsrcZoneInit 0x296
-#define GrayRgn 0x9EE
-#define WindowList 0x9D6
-#define SaveVisRgn 0x9F2
-#define DragHook 0x9F6
-#define DeskHook 0x9F8
-#define MenuHook 0x9FA
-#define RestProc 0xA8C /* ResumeProc? */
-#define GhostWindow 0xA84
-#define TopMapHndl 0xA50
-#define SysMapHndl 0xA58
-#define SysMap 0xA58
-#define CurMap 0xA5A
-#define ResLoad 0xA5E
-#define ResErr 0xA60
-#define BoxFlag 0xCB3
-#define MMU32Bit 0xCB2
-#define TimeDBRA 0xD00
-#define HwCfgFlags 0xB22
-#define EDiskVars 0 /* Where is this? */
-#define EDiskDriveInfo 0 /* Where is this? */
-
-/* For CurApName, we usually find it in SysEqu.a */
-/* CurApName EQU 10 */
+#endif /* STARTMGRDEFS_H */
